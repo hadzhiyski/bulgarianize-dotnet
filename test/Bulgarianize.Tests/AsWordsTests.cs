@@ -76,5 +76,62 @@ namespace Bulgarianize.Tests
         {
             Assert.AreEqual(word, number.AsWords());
         }
+
+        [TestCase(100, "сто")]
+        [TestCase(200, "двеста")]
+        [TestCase(300, "триста")]
+        [TestCase(400, "четиристотин")]
+        [TestCase(500, "петстотин")]
+        [TestCase(600, "шестстотин")]
+        [TestCase(700, "седемстотин")]
+        [TestCase(800, "осемстотин")]
+        [TestCase(900, "деветстотин")]
+        public void ShouldWorkWithNumbersLessThan1000AndDividableBy100(long number, string word)
+        {
+            Assert.AreEqual(word, number.AsWords());
+        }
+
+        [TestCase(110, "сто и десет")]
+        [TestCase(123, "сто двадесет и три")]
+        [TestCase(217, "двеста и седемнадесет")]
+        [TestCase(420, "четиристотин и двадесет")]
+        public void ShouldWorkWithNumbersGreaterThan100AndLessThan1000AndNotDividableBy100(long number, string word)
+        {
+            Assert.AreEqual(word, number.AsWords());
+        }
+
+        [TestCase(1_000, "хиляда")]
+        [TestCase(2_000, "две хиляди")]
+        [TestCase(5_000, "пет хиляди")]
+        [TestCase(10_000, "десет хиляди")]
+        [TestCase(13_000, "тринадесет хиляди")]
+        [TestCase(28_000, "двадесет и осем хиляди")]
+        [TestCase(100_000, "сто хиляди")]
+        [TestCase(673_000, "шестстотин седемдесет и три хиляди")]
+        public void ShouldWorkWithNumbersDividableBy1000(long number, string word)
+        {
+            Assert.AreEqual(word, number.AsWords());
+        }
+
+        [TestCase(1_001, "хиляда и едно")]
+        [TestCase(1_024, "хиляда двадесет и четири")]
+        [TestCase(17_001, "седемнадесет хиляди и едно")]
+        [TestCase(24_200, "двадесет и четири хиляди и двеста")]
+        [TestCase(65_536, "шестдесет и пет хиляди петстотин тридесет и шест")]
+        [TestCase(123_456, "сто двадесет и три хиляди четиристотин петдесет и шест")]
+        public void ShouldWorkWithNumbersLessThanAMillionAndNotDividableBy1000(long number, string word)
+        {
+            Assert.AreEqual(word, number.AsWords());
+        }
+
+        [TestCase(1_000_000, "един милион")]
+        [TestCase(1_000_001, "един милион и едно")]
+        [TestCase(2_000_200, "два милиона и двеста")]
+        [TestCase(35_000_035, "тридесет и пет милиона тридесет и пет")]
+        [TestCase(123_456_789, "сто двадесет и три милиона четиристотин петдесет и шест хиляди седемстотин осемдесет и девет")]
+        public void ShouldWorkWithMillions(long number, string word)
+        {
+            Assert.AreEqual(word, number.AsWords());
+        }
     }
 }
